@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import Box from "./components/Box"
+import Box from "./Box"
 
 let style1 = {
   display:"flex",
