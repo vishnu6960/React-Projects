@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import ToDoList from "../toDoList/ToDoList"
 
 const ToDoApp = () =>{
-
-    const [tasks, setTasks] = useState([])
+    
+    let localTodos = JSON.parse(localStorage.getItem('todos'))
+    const [tasks, setTasks] = useState(localTodos)
     const [input, setInput] = useState("")
 
     const addTodo = ()=>{
@@ -15,13 +16,18 @@ const ToDoApp = () =>{
 
     const deleteTodo = (id) =>{
         setTasks(tasks.filter((item) => item.id !== id))
+        // localStorage.setItem('todos', JSON.stringify(tasks))
     }
 
     const toggleComplete = (id) =>{
-        setTasks(tasks.map((task) =>{
+        setTasks(tasks.map((task) =>(
             task.id === id ? {...task, completed: !task.completed} : task
-        }))
+        )))
     }
+
+    useEffect(() =>{
+        localStorage.setItem('todos', JSON.stringify(tasks))
+    }, [tasks])
 
     return (
         <>
